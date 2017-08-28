@@ -27,5 +27,8 @@
         NSLog(@"%@", error);
     }];
 }
+- (IBAction)cleanAllCache:(id)sender {
+    [DWNetworking cleanAllCache];
+}
 
 @end

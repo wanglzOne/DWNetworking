@@ -92,4 +92,21 @@ typedef void (^DWResponseFail)(NSError *error);
  */
 + (void)uploacWithImages:(NSArray<UIImage *>*)images url:(NSString *)url fileNames:(NSArray<NSString *> *)fileNames names:(NSArray<NSString *> *)names imgType:(NSString *)imgType parameters:(NSDictionary *)parameters progress:(void(^)(NSProgress *progress))progress success:(DWResponseSuccess)success fail:(DWResponseFail)fail;
 
+/**
+ 是否自动使用缓存/即为请求失败或者当前无数据返回，如果缓存中有数据则返回缓存数据
+
+ @param cache 默认为YES
+ */
++ (void)setAutoUseCache:(BOOL)cache;
+
+/**
+ 取消全部请求
+ */
++ (void)cancelAllTask;
+
+/**
+ 清除全部缓存
+ */
++ (void)cleanAllCache;
+
 @end
