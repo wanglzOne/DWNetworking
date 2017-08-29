@@ -32,6 +32,8 @@ static NSTimeInterval _networkingTimeout = 60.0f;
 static NSInteger _networkingMaxConcurrentCount = 3;
 /** 是否自动使用缓存 */
 static BOOL _networkingAutoUseCache = YES;
+/** 设置不使用缓存的url */
+static NSArray<NSString *> *_networkingNotAutoUseCache = nil;
 
 static NSString *kNetworkingCache = @"kNetworkingCache";
 
@@ -101,9 +103,15 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
 + (void)getUrlString:(NSString *)url params:(NSDictionary *)params success:(DWResponseSuccess)success fail:(DWResponseFail)fail {
     AFHTTPSessionManager *manager = [self afnetworingManager];
     YYCache *cache = [self yyCache];
+    __weak __typeof(self)weakSelf = self;
     [manager GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
-        [cache setObject:responseObject forKey:url];
+        if (![[weakSelf notAutoUseCacheUrl] containsObject:url]) {
+            if ([cache containsObjectForKey:url]) {
+                [cache removeObjectForKey:url];
+            }
+            [cache setObject:responseObject forKey:url];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if ([cache containsObjectForKey:url]) {
             success([cache objectForKey:url]);
@@ -116,9 +124,15 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
 + (void)postUrlString:(NSString *)url params:(NSDictionary *)params success:(DWResponseSuccess)success fail:(DWResponseFail)fail {
     AFHTTPSessionManager *manager = [self afnetworingManager];
     YYCache *cache = [self yyCache];
+    __weak __typeof(self)weakSelf = self;
     [manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-    success(responseObject);
-        [cache setObject:responseObject forKey:url];
+        success(responseObject);
+        if (![[weakSelf notAutoUseCacheUrl] containsObject:url]) {
+            if ([cache containsObjectForKey:url]) {
+                [cache removeObjectForKey:url];
+            }
+            [cache setObject:responseObject forKey:url];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if ([cache containsObjectForKey:url]) {
             success([cache objectForKey:url]);
@@ -151,6 +165,38 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
 + (void)cleanAllCache {
     YYCache *cache = [self yyCache];
     [cache removeAllObjects];
+}
+
++ (void)setNotAutoUseCacheUrls:(NSArray<NSString *> *)urls {
+    _networkingNotAutoUseCache = urls;
+}
+
++ (NSArray <NSString *> *)notAutoUseCacheUrl {
+    return _networkingNotAutoUseCache;
+}
+
++ (void)networkEnvironmentChange:(void(^)(DWNetworkReachabilityStatus reachabilityStatus))reachabilityStatus {
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    [manager startMonitoring];
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                reachabilityStatus(DWNetworkReachabilityStatusUnknown);
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                reachabilityStatus(DWNetworkReachabilityStatusNotReachable);
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                reachabilityStatus(DWNetworkReachabilityStatusReachableViaWWAN);
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                reachabilityStatus(DWNetworkReachabilityStatusReachableViaWiFi);
+                break;
+            default:
+                break;
+        }
+    }];
+    
 }
 
 + (UIImage *)compressImage:(UIImage *)sourceImage {
