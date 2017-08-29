@@ -17,19 +17,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@", [DWNetworking notAutoUseCacheUrl]);
 }
 
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [DWNetworking postUrlString:@"Mapp/Pub/getBannerList" params:@{@"position":@"13"} success:^(id response) {
-        NSLog(@"%@", response);
-    } fail:^(NSError *error) {
-        NSLog(@"%@", error);
+    [DWNetworking postUrlString:@"Mapp/Pub/getBannerList" params:@{@"position":@"13"} resultCallBack:^(id success, NSError *error) {
+        NSLog(@"%@--->%lld", success, [DWNetworking getCachesSize]);
     }];
 }
 - (IBAction)cleanAllCache:(id)sender {
+    NSLog(@"%@", [DWNetworking getCachesPath]);
     [DWNetworking cleanAllCache];
+    NSLog(@"缓存:%lldKB", [DWNetworking getCachesSize]);
 }
 
 @end

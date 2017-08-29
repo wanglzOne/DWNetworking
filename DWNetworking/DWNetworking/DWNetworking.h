@@ -22,8 +22,16 @@ typedef NS_ENUM(NSUInteger, DWNetworkReachabilityStatus) {
     DWNetworkReachabilityStatusReachableViaWiFi = 2
 };
 
-typedef void (^DWResponseSuccess)(id response);
-typedef void (^DWResponseFail)(NSError *error);
+typedef NS_ENUM(NSUInteger, DWNetworkResponseType) {
+    DWResponseTypeJSON = 0,
+    DWBResponseTypeXML,
+    DWBResponseTypeData
+};
+
+typedef NS_ENUM(NSUInteger, DWNetworkRequestType) {
+    DWRequestTypeJSON = 0,
+    DWRequestTypePlainText,
+};
 
 /**
  设置请求地址的基础url
@@ -42,6 +50,14 @@ typedef void (^DWResponseFail)(NSError *error);
  @param enabled 默认开启
  */
 + (void)setNetworkActivityEnabled:(BOOL)enabled;
+
+/**
+ 设置请求类型
+ @param requestType 请求类型
+ @param responseType 返回类型
+ */
++ (void)setConfigRequestType:(DWNetworkRequestType)requestType
+                responseType:(DWNetworkResponseType)responseType;
 
 /**
  设置请求头
@@ -65,19 +81,41 @@ typedef void (^DWResponseFail)(NSError *error);
  GET
  @param url 请求地址
  @param params 请求参数/可为空
- @param success 成功
- @param fail 失败
+ @param resultCallBack 回调函数
  */
-+ (void)getUrlString:(NSString *)url params:(NSDictionary *)params success:(DWResponseSuccess)success fail:(DWResponseFail)fail;
++ (void)getUrlString:(NSString *)url
+              params:(NSDictionary *)params
+      resultCallBack:(void(^)(id success, NSError *error))resultCallBack;
 
 /**
  POST
  @param url 请求地址
  @param params 请求参数
- @param success 成功
- @param fail 失败
+ @param resultCallBack 回调函数
  */
-+ (void)postUrlString:(NSString *)url params:(NSDictionary *)params success:(DWResponseSuccess)success fail:(DWResponseFail)fail;
++ (void)postUrlString:(NSString *)url
+               params:(NSDictionary *)params
+       resultCallBack:(void(^)(id success, NSError *error))resultCallBack;
+
+/**
+ 单图上传
+ @param image 图片对象
+ @param url 上传地址
+ @param fileName 文件名，带后缀
+ @param name 与指定的图片相关联的名称，这是由后端写接口的人指定的，如imagefiles
+ @param imageType image/jpeg
+ @param parameters 参数
+ @param progress 参数
+ @param resultCallBack 回调函数
+ */
++ (void)uploadWithImage:(UIImage *)image
+                    url:(NSString *)url
+               fileName:(NSString *)fileName
+                   name:(NSString *)name
+              imageType:(NSString *)imageType
+             parameters:(NSDictionary *)parameters
+               progress:(void(^)(NSProgress *progress))progress
+         resultCallBack:(void(^)(id success, NSError *error))resultCallBack;
 
 /**
  多图上传
@@ -85,13 +123,19 @@ typedef void (^DWResponseFail)(NSError *error);
  @param url 上传地址
  @param fileNames 文件名数组,带后缀
  @param names 与指定的图片相关联的名称，这是由后端写接口的人指定的，如imagefiles
- @param imgType image/jpeg
+ @param imageType image/jpeg
  @param parameters 参数
  @param progress 进度
- @param success 成功
- @param fail 失败
+ @param resultCallBack 回调函数
  */
-+ (void)uploacWithImages:(NSArray<UIImage *>*)images url:(NSString *)url fileNames:(NSArray<NSString *> *)fileNames names:(NSArray<NSString *> *)names imgType:(NSString *)imgType parameters:(NSDictionary *)parameters progress:(void(^)(NSProgress *progress))progress success:(DWResponseSuccess)success fail:(DWResponseFail)fail;
++ (void)uploadWithImages:(NSArray<UIImage *>*)images
+                     url:(NSString *)url
+               fileNames:(NSArray<NSString *> *)fileNames
+                   names:(NSArray<NSString *> *)names
+               imageType:(NSString *)imageType
+              parameters:(NSDictionary *)parameters
+                progress:(void(^)(NSProgress *progress))progress
+          resultCallBack:(void(^)(id success, NSError *error))resultCallBack;
 
 /**
  是否自动使用缓存/即为请求失败或者当前无网络连接，如果缓存中有数据则返回缓存数据，无数据则走失败接口
@@ -123,8 +167,26 @@ typedef void (^DWResponseFail)(NSError *error);
 + (void)cancelAllTask;
 
 /**
+ 自动清除缓存
+ @param size 当缓存>=size时自动清除
+ */
++ (void)setAutoCleanCacheSize:(long long)size;
+
+/**
  清除全部缓存
  */
 + (void)cleanAllCache;
+
+/**
+ 获取缓存大小
+ @return 单位KB
+ */
++ (long long)getCachesSize;
+
+/**
+ 获取缓存文件夹路径
+ @return 文件路径
+ */
++ (NSString *)getCachesPath;
 
 @end

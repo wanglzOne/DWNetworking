@@ -12,7 +12,6 @@
 #define NSLog(...);
 #endif
 
-
 #import "DWNetworking.h"
 #import <AFNetworking.h>
 #import <AFNetworkActivityIndicatorManager.h>
@@ -34,8 +33,11 @@ static NSInteger _networkingMaxConcurrentCount = 3;
 static BOOL _networkingAutoUseCache = YES;
 /** 设置不使用缓存的url */
 static NSArray<NSString *> *_networkingNotAutoUseCache = nil;
+static DWNetworkRequestType _networkingRequestType = DWRequestTypeJSON;
+static DWNetworkResponseType _networkingResponseType = DWResponseTypeJSON;
 
-static NSString *kNetworkingCache = @"kNetworkingCache";
+/** 设置缓存文件夹 */
+static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
 
 @implementation DWNetworking
 
@@ -45,6 +47,12 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
 
 + (NSString *)baseUrlString {
     return _networking_baseUrl;
+}
+
++ (void)setConfigRequestType:(DWNetworkRequestType)requestType
+                responseType:(DWNetworkResponseType)responseType {
+    _networkingRequestType = requestType;
+    _networkingResponseType = responseType;
 }
 
 + (void)setHttpHeaderConfig:(NSDictionary *)config {
@@ -67,45 +75,14 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
     _networkingAutoUseCache = cache;
 }
 
-+ (AFHTTPSessionManager *)afnetworingManager {
-    @synchronized (self) {
-        if (_networkActivityEnabled) {
-            [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-        }
-        AFHTTPSessionManager *manager = nil;
-        if ([self baseUrlString]) {
-            manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:[self baseUrlString]]];
-        }else {
-            manager = [AFHTTPSessionManager manager];
-        }
-        manager.requestSerializer=[AFJSONRequestSerializer serializer];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
-        if (_networkingHttpHeaderConfig) {
-            for (NSString *key in [_networkingHttpHeaderConfig allKeys]) {
-                [manager.requestSerializer setValue:_networkingHttpHeaderConfig[key] forHTTPHeaderField:key];
-            }
-        }
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
-                                                                                  @"text/html",
-                                                                                  @"text/json",
-                                                                                  @"text/plain",
-                                                                                  @"text/javascript",
-                                                                                  @"text/xml",
-                                                                                  @"image/*"]];
-        manager.requestSerializer.timeoutInterval = _networkingTimeout;
-        manager.operationQueue.maxConcurrentOperationCount = _networkingMaxConcurrentCount;
-        _networkingSession = manager;
-    }
-    return _networkingSession;
-}
-
-+ (void)getUrlString:(NSString *)url params:(NSDictionary *)params success:(DWResponseSuccess)success fail:(DWResponseFail)fail {
++ (void)getUrlString:(NSString *)url
+              params:(NSDictionary *)params
+      resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
     AFHTTPSessionManager *manager = [self afnetworingManager];
     YYCache *cache = [self yyCache];
     __weak __typeof(self)weakSelf = self;
     [manager GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
+        resultCallBack(responseObject, nil);
         if (![[weakSelf notAutoUseCacheUrl] containsObject:url]) {
             if ([cache containsObjectForKey:url]) {
                 [cache removeObjectForKey:url];
@@ -114,19 +91,21 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if ([cache containsObjectForKey:url]) {
-            success([cache objectForKey:url]);
+            resultCallBack([cache objectForKey:url], nil);
         }else {
-            fail(error);
+            resultCallBack(nil, error);
         }
     }];
 }
 
-+ (void)postUrlString:(NSString *)url params:(NSDictionary *)params success:(DWResponseSuccess)success fail:(DWResponseFail)fail {
++ (void)postUrlString:(NSString *)url
+               params:(NSDictionary *)params
+       resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
     AFHTTPSessionManager *manager = [self afnetworingManager];
     YYCache *cache = [self yyCache];
     __weak __typeof(self)weakSelf = self;
     [manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
+        resultCallBack(responseObject, nil);
         if (![[weakSelf notAutoUseCacheUrl] containsObject:url]) {
             if ([cache containsObjectForKey:url]) {
                 [cache removeObjectForKey:url];
@@ -135,26 +114,54 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if ([cache containsObjectForKey:url]) {
-            success([cache objectForKey:url]);
+            resultCallBack([cache objectForKey:url], nil);
         }else {
-            fail(error);
+            resultCallBack(nil, error);
         }
     }];
 }
 
-+ (void)uploacWithImages:(NSArray<UIImage *>*)images url:(NSString *)url fileNames:(NSArray<NSString *> *)fileNames names:(NSArray<NSString *> *)names imgType:(NSString *)imgType parameters:(NSDictionary *)parameters progress:(void(^)(NSProgress *progress))progress success:(DWResponseSuccess)success fail:(DWResponseFail)fail {
++ (void)uploadWithImage:(UIImage *)image
+                    url:(NSString *)url
+               fileName:(NSString *)fileName
+                   name:(NSString *)name
+              imageType:(NSString *)imageType
+             parameters:(NSDictionary *)parameters
+               progress:(void(^)(NSProgress *progress))progress
+         resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
+    AFHTTPSessionManager *manager = [self afnetworingManager];
+    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        NSData *data = UIImageJPEGRepresentation([self compressImage:image], 1);
+        [formData appendPartWithFileData:data name:name fileName:fileName mimeType:imageType];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        progress(uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        resultCallBack(responseObject, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        resultCallBack(nil, error);
+    }];
+}
+
++ (void)uploadWithImages:(NSArray<UIImage *>*)images
+                     url:(NSString *)url
+               fileNames:(NSArray<NSString *> *)fileNames
+                   names:(NSArray<NSString *> *)names
+               imageType:(NSString *)imageType
+              parameters:(NSDictionary *)parameters
+                progress:(void(^)(NSProgress *progress))progress
+          resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
     AFHTTPSessionManager *manager = [self afnetworingManager];
     [manager POST:[NSString stringWithFormat:@"%@%@", [self baseUrlString], url] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         for (int i = 0; i < images.count; i ++) {
             NSData *data = UIImageJPEGRepresentation([self compressImage:images[i]], 1);
-            [formData appendPartWithFileData:data name:names[i] fileName:fileNames[i] mimeType:imgType];
+            [formData appendPartWithFileData:data name:names[i] fileName:fileNames[i] mimeType:imageType];
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         progress(uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseData) {
-        success(responseData);
+        resultCallBack(responseData, nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        fail(error);
+        resultCallBack(nil, error);
     }];
 }
 
@@ -162,9 +169,28 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
     [[self afnetworingManager].operationQueue cancelAllOperations];
 }
 
++ (long long)getCachesSize {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    long long size = 0;
+    if ([manager fileExistsAtPath:[self getCachesPath]]) {
+        // 目录下的文件计算大小
+        NSArray *childrenFile = [manager subpathsAtPath:[self getCachesPath]];
+        for (NSString *fileName in childrenFile) {
+            NSString *absolutePath = [[self getCachesPath] stringByAppendingPathComponent:fileName];
+            size += [manager attributesOfItemAtPath:absolutePath error:nil].fileSize;
+        }
+    }
+    return size/1024;
+}
+
 + (void)cleanAllCache {
-    YYCache *cache = [self yyCache];
-    [cache removeAllObjects];
+    [self cleanCaches:[self getCachesPath]];
+}
+
++ (void)setAutoCleanCacheSize:(long long)size {
+    if (size <= [self getCachesSize]) {
+        [self cleanAllCache];
+    }
 }
 
 + (void)setNotAutoUseCacheUrls:(NSArray<NSString *> *)urls {
@@ -199,6 +225,59 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
     
 }
 
++ (AFHTTPSessionManager *)afnetworingManager {
+    @synchronized (self) {
+        if (_networkActivityEnabled) {
+            [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+        }
+        AFHTTPSessionManager *manager = nil;
+        if ([self baseUrlString]) {
+            manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:[self baseUrlString]]];
+        }else {
+            manager = [AFHTTPSessionManager manager];
+        }
+        switch (_networkingRequestType) {
+            case DWRequestTypeJSON:
+                 manager.requestSerializer = [AFJSONRequestSerializer serializer];
+                break;
+            case DWRequestTypePlainText:
+                manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+                break;
+            default:
+                break;
+        }
+        switch (_networkingResponseType) {
+            case DWResponseTypeJSON:
+                manager.responseSerializer = [AFJSONResponseSerializer serializer];
+                break;
+            case DWBResponseTypeXML:
+                manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+                break;
+            case DWBResponseTypeData:
+                manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+            default:
+                break;
+        }
+        manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
+        if (_networkingHttpHeaderConfig) {
+            for (NSString *key in [_networkingHttpHeaderConfig allKeys]) {
+                [manager.requestSerializer setValue:_networkingHttpHeaderConfig[key] forHTTPHeaderField:key];
+            }
+        }
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
+                        @"text/html",
+                        @"text/json",
+                        @"text/plain",
+                        @"text/javascript",
+                        @"text/xml",
+                        @"image/*"]];
+        manager.requestSerializer.timeoutInterval = _networkingTimeout;
+        manager.operationQueue.maxConcurrentOperationCount = _networkingMaxConcurrentCount;
+        _networkingSession = manager;
+    }
+    return _networkingSession;
+}
+
 + (UIImage *)compressImage:(UIImage *)sourceImage {
     CGSize imageSize = sourceImage.size;
     CGFloat width = imageSize.width;
@@ -215,5 +294,23 @@ static NSString *kNetworkingCache = @"kNetworkingCache";
     YYCache *cache = [YYCache cacheWithName:kNetworkingCache];
     return cache;
 }
+
++ (void)cleanCaches:(NSString *)path{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childrenFiles = [fileManager subpathsAtPath:path];
+        for (NSString *fileName in childrenFiles) {
+            NSString *absolutePath = [path stringByAppendingPathComponent:fileName];
+            [fileManager removeItemAtPath:absolutePath error:nil];
+        }
+    }
+}
+
++ (NSString *)getCachesPath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask,YES);
+    NSString *cachesDir = [paths lastObject];
+    return cachesDir;
+}
+
 
 @end
