@@ -1,8 +1,8 @@
 //
 //  AppDelegate.m
-//  DWNetworking
+//  DWNetworkingDemo
 //
-//  Created by dawng on 2017/8/28.
+//  Created by dawng on 2017/8/29.
 //  Copyright © 2017年 CoderDwang. All rights reserved.
 //
 
@@ -17,8 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [DWNetworking setBaseUrlString:@"http://ceshi.sihaiinvest.com/"];
-    [DWNetworking setNotAutoUseCacheUrls:@[@"Mapp/Pub/getBannerList"]];
+    [DWNetworking setBaseUrlString:@"基础url"];
+    [DWNetworking setNotAutoUseCacheUrls:@[@"不使用自动缓存的url"]];
+    [DWNetworking setAutoCleanCacheSize:1024];
     [DWNetworking networkEnvironmentChange:^(DWNetworkReachabilityStatus reachabilityStatus) {
         NSLog(@"%ld", reachabilityStatus);
     }];

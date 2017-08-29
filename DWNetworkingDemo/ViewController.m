@@ -1,8 +1,8 @@
 //
 //  ViewController.m
-//  DWNetworking
+//  DWNetworkingDemo
 //
-//  Created by dawng on 2017/8/28.
+//  Created by dawng on 2017/8/29.
 //  Copyright © 2017年 CoderDwang. All rights reserved.
 //
 
@@ -15,14 +15,11 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [DWNetworking postUrlString:@"Mapp/Pub/getBannerList" params:@{@"position":@"13"} resultCallBack:^(id success, NSError *error) {
-        NSLog(@"%@--->%lld", success, [DWNetworking getCachesSize]);
+    [DWNetworking postUrlString:@"url" params:nil resultCallBack:^(id success, NSError *error) {
+        if (!error) {
+            NSLog(@"%@--->%lld", success, [DWNetworking getCachesSize]);
+        }
     }];
 }
 - (IBAction)cleanAllCache:(id)sender {
@@ -30,5 +27,6 @@
     [DWNetworking cleanAllCache];
     NSLog(@"缓存:%lldKB", [DWNetworking getCachesSize]);
 }
+
 
 @end

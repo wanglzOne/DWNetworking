@@ -46,12 +46,6 @@ typedef NS_ENUM(NSUInteger, DWNetworkRequestType) {
 + (NSString *)baseUrlString;
 
 /**
- 是否开启网络请求状态指示器
- @param enabled 默认开启
- */
-+ (void)setNetworkActivityEnabled:(BOOL)enabled;
-
-/**
  设置请求类型
  @param requestType 请求类型
  @param responseType 返回类型
@@ -76,6 +70,65 @@ typedef NS_ENUM(NSUInteger, DWNetworkRequestType) {
  @param count 默认3
  */
 + (void)setMaxConcurrentOperationCount:(NSInteger)count;
+
+/**
+ 设置是否自动使用缓存/即为请求失败或者当前无网络连接，如果缓存中有数据则返回缓存数据，无数据则走失败接口
+ @param cache 默认为YES
+ */
++ (void)setAutoUseCache:(BOOL)cache;
+
+/**
+ 设置不自动使用缓存的url地址
+ @param urls 此地址为请求时输入的url
+ */
++ (void)setNotAutoUseCacheUrls:(NSArray <NSString *>*)urls;
+
+/**
+ 获取当前已有不使用缓存的url
+ @return 已有地址
+ */
++ (NSArray <NSString *> *)notAutoUseCacheUrl;
+
+/**
+ 设置是否开启网络请求状态指示器
+ @param enabled 默认开启
+ */
++ (void)setNetworkActivityEnabled:(BOOL)enabled;
+
+/**
+ 获取当前网络状态
+ @param reachabilityStatus 网络状态码
+ */
++ (void)networkEnvironmentChange:(void(^)(DWNetworkReachabilityStatus reachabilityStatus))reachabilityStatus;
+
+/**
+ 取消全部请求
+ */
++ (void)cancelAllTask;
+
+/**
+ 获取缓存文件夹路径
+ @return 文件路径
+ */
++ (NSString *)getCachesPath;
+
+
+/**
+ 设置自动清除缓存值上限
+ @param size 当缓存>=size时自动清除
+ */
++ (void)setAutoCleanCacheSize:(long long)size;
+
+/**
+ 获取缓存大小
+ @return 单位KB
+ */
++ (long long)getCachesSize;
+
+/**
+ 清除全部缓存
+ */
++ (void)cleanAllCache;
 
 /**
  GET
@@ -137,56 +190,5 @@ typedef NS_ENUM(NSUInteger, DWNetworkRequestType) {
                 progress:(void(^)(NSProgress *progress))progress
           resultCallBack:(void(^)(id success, NSError *error))resultCallBack;
 
-/**
- 是否自动使用缓存/即为请求失败或者当前无网络连接，如果缓存中有数据则返回缓存数据，无数据则走失败接口
- @param cache 默认为YES
- */
-+ (void)setAutoUseCache:(BOOL)cache;
-
-/**
- 设置不使用缓存的url地址
- @param urls 此地址为请求时输入的url
- */
-+ (void)setNotAutoUseCacheUrls:(NSArray <NSString *>*)urls;
-
-/**
- 获取当前已有不使用缓存的url
- @return 已有地址
- */
-+ (NSArray <NSString *> *)notAutoUseCacheUrl;
-
-/**
- 获取当前网络状态
- @param reachabilityStatus 网络状态码
- */
-+ (void)networkEnvironmentChange:(void(^)(DWNetworkReachabilityStatus reachabilityStatus))reachabilityStatus;
-
-/**
- 取消全部请求
- */
-+ (void)cancelAllTask;
-
-/**
- 自动清除缓存
- @param size 当缓存>=size时自动清除
- */
-+ (void)setAutoCleanCacheSize:(long long)size;
-
-/**
- 清除全部缓存
- */
-+ (void)cleanAllCache;
-
-/**
- 获取缓存大小
- @return 单位KB
- */
-+ (long long)getCachesSize;
-
-/**
- 获取缓存文件夹路径
- @return 文件路径
- */
-+ (NSString *)getCachesPath;
 
 @end

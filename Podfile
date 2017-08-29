@@ -1,4 +1,4 @@
-target 'DWNetworking' do
+target 'DWNetworkingDemo' do
 
 pod 'AFNetworking'
 

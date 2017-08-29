@@ -1,0 +1,432 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27F8B6831F55389300074918 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8B6821F55389300074918 /* main.m */; };
+		27F8B6861F55389300074918 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8B6851F55389300074918 /* AppDelegate.m */; };
+		27F8B6891F55389300074918 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8B6881F55389300074918 /* ViewController.m */; };
+		27F8B68C1F55389300074918 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F8B68A1F55389300074918 /* Main.storyboard */; };
+		27F8B68E1F55389300074918 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27F8B68D1F55389300074918 /* Assets.xcassets */; };
+		27F8B6911F55389300074918 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F8B68F1F55389300074918 /* LaunchScreen.storyboard */; };
+		27F8B69B1F5538DF00074918 /* DWNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8B69A1F5538DF00074918 /* DWNetworking.m */; };
+		27F8B69F1F5539AC00074918 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8B69E1F5539AC00074918 /* NSArray+Log.m */; };
+		C112932612EA07930C953B2E /* libPods-DWNetworkingDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B549B4A5C3FDF11050ED90BD /* libPods-DWNetworkingDemo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		27F8B67E1F55389300074918 /* DWNetworkingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DWNetworkingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		27F8B6821F55389300074918 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		27F8B6841F55389300074918 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		27F8B6851F55389300074918 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		27F8B6871F55389300074918 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		27F8B6881F55389300074918 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		27F8B68B1F55389300074918 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		27F8B68D1F55389300074918 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		27F8B6901F55389300074918 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		27F8B6921F55389300074918 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27F8B6991F5538DF00074918 /* DWNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWNetworking.h; sourceTree = "<group>"; };
+		27F8B69A1F5538DF00074918 /* DWNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWNetworking.m; sourceTree = "<group>"; };
+		27F8B69D1F5539AC00074918 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		27F8B69E1F5539AC00074918 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
+		B549B4A5C3FDF11050ED90BD /* libPods-DWNetworkingDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DWNetworkingDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA4FEAA8464B9B433CB0A879 /* Pods-DWNetworkingDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DWNetworkingDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DWNetworkingDemo/Pods-DWNetworkingDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		D32C83F338CB89CF0196B79F /* Pods-DWNetworkingDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DWNetworkingDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DWNetworkingDemo/Pods-DWNetworkingDemo.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		27F8B67B1F55389300074918 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C112932612EA07930C953B2E /* libPods-DWNetworkingDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		27F8B6751F55389300074918 = {
+			isa = PBXGroup;
+			children = (
+				27F8B6801F55389300074918 /* DWNetworkingDemo */,
+				27F8B67F1F55389300074918 /* Products */,
+				9A228B5C1A1BC81C4D4100CB /* Pods */,
+				9A6FAA2DEDE9C018ABDA1350 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		27F8B67F1F55389300074918 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27F8B67E1F55389300074918 /* DWNetworkingDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		27F8B6801F55389300074918 /* DWNetworkingDemo */ = {
+			isa = PBXGroup;
+			children = (
+				27F8B69C1F5539AC00074918 /* Log */,
+				27F8B6981F5538DF00074918 /* DWNetworking */,
+				27F8B6841F55389300074918 /* AppDelegate.h */,
+				27F8B6851F55389300074918 /* AppDelegate.m */,
+				27F8B6871F55389300074918 /* ViewController.h */,
+				27F8B6881F55389300074918 /* ViewController.m */,
+				27F8B68A1F55389300074918 /* Main.storyboard */,
+				27F8B68D1F55389300074918 /* Assets.xcassets */,
+				27F8B68F1F55389300074918 /* LaunchScreen.storyboard */,
+				27F8B6921F55389300074918 /* Info.plist */,
+				27F8B6811F55389300074918 /* Supporting Files */,
+			);
+			path = DWNetworkingDemo;
+			sourceTree = "<group>";
+		};
+		27F8B6811F55389300074918 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				27F8B6821F55389300074918 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		27F8B6981F5538DF00074918 /* DWNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				27F8B6991F5538DF00074918 /* DWNetworking.h */,
+				27F8B69A1F5538DF00074918 /* DWNetworking.m */,
+			);
+			path = DWNetworking;
+			sourceTree = SOURCE_ROOT;
+		};
+		27F8B69C1F5539AC00074918 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				27F8B69D1F5539AC00074918 /* NSArray+Log.h */,
+				27F8B69E1F5539AC00074918 /* NSArray+Log.m */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
+		9A228B5C1A1BC81C4D4100CB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BA4FEAA8464B9B433CB0A879 /* Pods-DWNetworkingDemo.debug.xcconfig */,
+				D32C83F338CB89CF0196B79F /* Pods-DWNetworkingDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9A6FAA2DEDE9C018ABDA1350 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B549B4A5C3FDF11050ED90BD /* libPods-DWNetworkingDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		27F8B67D1F55389300074918 /* DWNetworkingDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27F8B6951F55389300074918 /* Build configuration list for PBXNativeTarget "DWNetworkingDemo" */;
+			buildPhases = (
+				F4258E7A74A2777A01297662 /* [CP] Check Pods Manifest.lock */,
+				27F8B67A1F55389300074918 /* Sources */,
+				27F8B67B1F55389300074918 /* Frameworks */,
+				27F8B67C1F55389300074918 /* Resources */,
+				24954D164F3E5F0814FA95AB /* [CP] Embed Pods Frameworks */,
+				A2340B0E0D2714CF8DEBD340 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DWNetworkingDemo;
+			productName = DWNetworkingDemo;
+			productReference = 27F8B67E1F55389300074918 /* DWNetworkingDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		27F8B6761F55389300074918 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = CoderDwang;
+				TargetAttributes = {
+					27F8B67D1F55389300074918 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 7T92Q33AK6;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 27F8B6791F55389300074918 /* Build configuration list for PBXProject "DWNetworkingDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 27F8B6751F55389300074918;
+			productRefGroup = 27F8B67F1F55389300074918 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				27F8B67D1F55389300074918 /* DWNetworkingDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		27F8B67C1F55389300074918 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27F8B6911F55389300074918 /* LaunchScreen.storyboard in Resources */,
+				27F8B68E1F55389300074918 /* Assets.xcassets in Resources */,
+				27F8B68C1F55389300074918 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		24954D164F3E5F0814FA95AB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DWNetworkingDemo/Pods-DWNetworkingDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2340B0E0D2714CF8DEBD340 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DWNetworkingDemo/Pods-DWNetworkingDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4258E7A74A2777A01297662 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DWNetworkingDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		27F8B67A1F55389300074918 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27F8B69F1F5539AC00074918 /* NSArray+Log.m in Sources */,
+				27F8B69B1F5538DF00074918 /* DWNetworking.m in Sources */,
+				27F8B6891F55389300074918 /* ViewController.m in Sources */,
+				27F8B6861F55389300074918 /* AppDelegate.m in Sources */,
+				27F8B6831F55389300074918 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		27F8B68A1F55389300074918 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27F8B68B1F55389300074918 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		27F8B68F1F55389300074918 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27F8B6901F55389300074918 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		27F8B6931F55389300074918 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		27F8B6941F55389300074918 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		27F8B6961F55389300074918 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA4FEAA8464B9B433CB0A879 /* Pods-DWNetworkingDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7T92Q33AK6;
+				INFOPLIST_FILE = DWNetworkingDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = vip.dwang.DWNetworkingDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		27F8B6971F55389300074918 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D32C83F338CB89CF0196B79F /* Pods-DWNetworkingDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7T92Q33AK6;
+				INFOPLIST_FILE = DWNetworkingDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = vip.dwang.DWNetworkingDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		27F8B6791F55389300074918 /* Build configuration list for PBXProject "DWNetworkingDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27F8B6931F55389300074918 /* Debug */,
+				27F8B6941F55389300074918 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27F8B6951F55389300074918 /* Build configuration list for PBXNativeTarget "DWNetworkingDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27F8B6961F55389300074918 /* Debug */,
+				27F8B6971F55389300074918 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 27F8B6761F55389300074918 /* Project object */;
+}

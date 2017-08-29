@@ -6,12 +6,6 @@
 //  Copyright © 2017年 CoderDwang. All rights reserved.
 //
 
-#ifdef DEBUG
-#define NSLog( s, ... ) NSLog( @"\n[所在文件:%@]\n[所在方法:%s]\n[所在行数:%d]\n[打印内容:%@]", NSStringFromClass([self class]), __func__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-#else
-#define NSLog(...);
-#endif
-
 #import "DWNetworking.h"
 #import <AFNetworking.h>
 #import <AFNetworkActivityIndicatorManager.h>
@@ -33,7 +27,7 @@ static NSInteger _networkingMaxConcurrentCount = 3;
 static BOOL _networkingAutoUseCache = YES;
 /** 设置不使用缓存的url */
 static NSArray<NSString *> *_networkingNotAutoUseCache = nil;
-static DWNetworkRequestType _networkingRequestType = DWRequestTypeJSON;
+static DWNetworkRequestType _networkingRequestType = DWRequestTypePlainText;
 static DWNetworkResponseType _networkingResponseType = DWResponseTypeJSON;
 
 /** 设置缓存文件夹 */
