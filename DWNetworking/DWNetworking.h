@@ -90,12 +90,6 @@ typedef NS_ENUM(NSUInteger, DWNetworkRequestType) {
 + (NSArray <NSString *> *)notAutoUseCacheUrl;
 
 /**
- 设置是否开启网络请求状态指示器
- @param enabled 默认开启
- */
-+ (void)setNetworkActivityEnabled:(BOOL)enabled;
-
-/**
  获取当前网络状态
  @param reachabilityStatus 网络状态码
  */

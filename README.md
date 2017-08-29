@@ -24,11 +24,6 @@
     //(如果有多处不同基础url，
     //此段代码也可不加，每次请求即需传入完整url)
     [DWNetworking setBaseUrlString:@"设置基础url"];
-    
-    //是否显示网络状态指示器，
-    //默认YES
-    //(此处为默认数据，可不加此数据)
-    [DWNetworking setNetworkActivityEnabled:NO];
 
     //设置请求参数与返回参数类型
     //(此处为默认数据，可不加此数据)
@@ -44,6 +39,11 @@
     //设置不使用缓存的url
     //此url为发送请求时的url
     [DWNetworking setNotAutoUseCacheUrls:arr];
+    
+    //如果想要显示网络状态指示器，则需加入以下代码
+    导入头文件
+    #import "AFNetworkActivityIndicatorManager.h"
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     //网络状态
     [DWNetworking networkEnvironmentChange:^(DWNetworkReachabilityStatus reachabilityStatus) {
@@ -93,4 +93,5 @@
      parameters:<(NSDictionary *)> 
      progress:<^(NSProgress *progress)progress> 
      resultCallBack:<^(id success, NSError *error)resultCallBack>];
+
 

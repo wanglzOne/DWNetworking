@@ -8,13 +8,10 @@
 
 #import "DWNetworking.h"
 #import "AFNetworking.h"
-#import "AFNetworkActivityIndicatorManager.h"
 #import "YYCache.h"
 
 /** 基础url */
 static NSString *_networking_baseUrl = nil;
-/** 是否显示网络请求状态指示器 */
-static BOOL _networkActivityEnabled = YES;
 /** afn */
 static AFHTTPSessionManager *_networkingSession = nil;
 /** 请求头 */
@@ -55,10 +52,6 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
 
 + (void)setTimeoutInterval:(NSTimeInterval)time {
     _networkingTimeout = time;
-}
-
-+ (void)setNetworkActivityEnabled:(BOOL)enabled {
-    _networkActivityEnabled = enabled;
 }
 
 + (void)setMaxConcurrentOperationCount:(NSInteger)count {
@@ -221,9 +214,6 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
 
 + (AFHTTPSessionManager *)afnetworingManager {
     @synchronized (self) {
-        if (_networkActivityEnabled) {
-            [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-        }
         AFHTTPSessionManager *manager = nil;
         if ([self baseUrlString]) {
             manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:[self baseUrlString]]];
