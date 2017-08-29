@@ -13,8 +13,8 @@
 		27F8B68C1F55389300074918 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F8B68A1F55389300074918 /* Main.storyboard */; };
 		27F8B68E1F55389300074918 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27F8B68D1F55389300074918 /* Assets.xcassets */; };
 		27F8B6911F55389300074918 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27F8B68F1F55389300074918 /* LaunchScreen.storyboard */; };
-		27F8B69B1F5538DF00074918 /* DWNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8B69A1F5538DF00074918 /* DWNetworking.m */; };
 		27F8B69F1F5539AC00074918 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8B69E1F5539AC00074918 /* NSArray+Log.m */; };
+		27F8B6AB1F55429400074918 /* DWNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F8B6AA1F55429400074918 /* DWNetworking.m */; };
 		C112932612EA07930C953B2E /* libPods-DWNetworkingDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B549B4A5C3FDF11050ED90BD /* libPods-DWNetworkingDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -29,10 +29,10 @@
 		27F8B68D1F55389300074918 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27F8B6901F55389300074918 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27F8B6921F55389300074918 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		27F8B6991F5538DF00074918 /* DWNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWNetworking.h; sourceTree = "<group>"; };
-		27F8B69A1F5538DF00074918 /* DWNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWNetworking.m; sourceTree = "<group>"; };
 		27F8B69D1F5539AC00074918 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
 		27F8B69E1F5539AC00074918 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
+		27F8B6A91F55429400074918 /* DWNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWNetworking.h; sourceTree = "<group>"; };
+		27F8B6AA1F55429400074918 /* DWNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWNetworking.m; sourceTree = "<group>"; };
 		B549B4A5C3FDF11050ED90BD /* libPods-DWNetworkingDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DWNetworkingDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4FEAA8464B9B433CB0A879 /* Pods-DWNetworkingDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DWNetworkingDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DWNetworkingDemo/Pods-DWNetworkingDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		D32C83F338CB89CF0196B79F /* Pods-DWNetworkingDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DWNetworkingDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DWNetworkingDemo/Pods-DWNetworkingDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -71,8 +71,8 @@
 		27F8B6801F55389300074918 /* DWNetworkingDemo */ = {
 			isa = PBXGroup;
 			children = (
+				27F8B6A81F55429400074918 /* DWNetworking */,
 				27F8B69C1F5539AC00074918 /* Log */,
-				27F8B6981F5538DF00074918 /* DWNetworking */,
 				27F8B6841F55389300074918 /* AppDelegate.h */,
 				27F8B6851F55389300074918 /* AppDelegate.m */,
 				27F8B6871F55389300074918 /* ViewController.h */,
@@ -94,15 +94,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		27F8B6981F5538DF00074918 /* DWNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				27F8B6991F5538DF00074918 /* DWNetworking.h */,
-				27F8B69A1F5538DF00074918 /* DWNetworking.m */,
-			);
-			path = DWNetworking;
-			sourceTree = SOURCE_ROOT;
-		};
 		27F8B69C1F5539AC00074918 /* Log */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +102,15 @@
 			);
 			path = Log;
 			sourceTree = "<group>";
+		};
+		27F8B6A81F55429400074918 /* DWNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				27F8B6A91F55429400074918 /* DWNetworking.h */,
+				27F8B6AA1F55429400074918 /* DWNetworking.m */,
+			);
+			path = DWNetworking;
+			sourceTree = SOURCE_ROOT;
 		};
 		9A228B5C1A1BC81C4D4100CB /* Pods */ = {
 			isa = PBXGroup;
@@ -256,7 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27F8B69F1F5539AC00074918 /* NSArray+Log.m in Sources */,
-				27F8B69B1F5538DF00074918 /* DWNetworking.m in Sources */,
+				27F8B6AB1F55429400074918 /* DWNetworking.m in Sources */,
 				27F8B6891F55389300074918 /* ViewController.m in Sources */,
 				27F8B6861F55389300074918 /* AppDelegate.m in Sources */,
 				27F8B6831F55389300074918 /* main.m in Sources */,
