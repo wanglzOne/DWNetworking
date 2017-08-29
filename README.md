@@ -4,8 +4,8 @@
 [![CocoaPods](http://img.shields.io/cocoapods/v/DWNetworking.svg?style=flat)](http://cocoapods.org/?q=DWNetworking)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/p/DWNetworking.svg?style=flat)](http://cocoapods.org/?q=DWNetworking)&nbsp;
 [![License](https://img.shields.io/cocoapods/l/DWNetworking.svg?style=flat)](http://cocoapods.org/pods/DWNetworking) 
-[![GitHub stars](https://img.shields.io/github/stars/dwanghello/DWNetworking.svg)](https://github.com/asiosldh/DWNetworking/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/dwanghello/DWNetworking.svg)](https://github.com/asiosldh/DWNetworking/forkgazers)
+[![GitHub stars](https://img.shields.io/github/stars/CoderDwang/DWNetworking.svg)](https://github.com/asiosldh/DWNetworking/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/CoderDwang/DWNetworking.svg)](https://github.com/asiosldh/DWNetworking/forkgazers)
 
 ![logo](https://github.com/CoderDwang/DWNetworking/blob/master/logo.png)
 
