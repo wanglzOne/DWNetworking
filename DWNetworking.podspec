@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author             = { "dwanghello" => "dwang.hello@outlook.com" }
   s.platform     = :ios, "8.0"
-  s.source       = { :git => "https://github.com/CoderDwang/DWNetworking.git", :tag => "s.version" }
+  s.source       = { :git => "https://github.com/CoderDwang/DWNetworking.git", :tag => s.version.to_s }
   s.source_files  = "DWNetworking", "DWNetworking/**/*.{h,m}"
   s.framework  = "Foundation"
   s.dependency "AFNetworking", "~> 3.1.0"
