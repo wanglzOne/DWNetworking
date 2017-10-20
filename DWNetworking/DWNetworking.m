@@ -117,9 +117,9 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
                progress:(void(^)(NSProgress *progress))progress
          resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
     AFHTTPSessionManager *manager = [self afnetworingManager];
+    __weak __typeof(self)weakSelf = self;
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        NSData *data = UIImageJPEGRepresentation([self compressImage:image], 1);
-        [formData appendPartWithFileData:data name:name fileName:fileName mimeType:imageType];
+        [formData appendPartWithFileData:[weakSelf imageData:image] name:name fileName:fileName mimeType:imageType];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         progress(uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -138,10 +138,10 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
                 progress:(void(^)(NSProgress *progress))progress
           resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
     AFHTTPSessionManager *manager = [self afnetworingManager];
+    __weak __typeof(self)weakSelf = self;
     [manager POST:[NSString stringWithFormat:@"%@%@", [self baseUrlString], url] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         for (int i = 0; i < images.count; i ++) {
-            NSData *data = UIImageJPEGRepresentation([self compressImage:images[i]], 1);
-            [formData appendPartWithFileData:data name:names[i] fileName:fileNames[i] mimeType:imageType];
+            [formData appendPartWithFileData:[weakSelf imageData:images[i]] name:names[i] fileName:fileNames[i] mimeType:imageType];
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         progress(uploadProgress);
@@ -262,16 +262,19 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
     return _networkingSession;
 }
 
-+ (UIImage *)compressImage:(UIImage *)sourceImage {
-    CGSize imageSize = sourceImage.size;
-    CGFloat width = imageSize.width;
-    CGFloat height = imageSize.height;
-    CGFloat targetHeight = (sourceImage.size.width / width) * height;
-    UIGraphicsBeginImageContext(CGSizeMake(sourceImage.size.width, targetHeight));
-    [sourceImage drawInRect:CGRectMake(0, 0, sourceImage.size.width, sourceImage.size.width)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
++ (NSData *)imageData:(UIImage *)myimage {
+    NSData *data=UIImageJPEGRepresentation(myimage, 1.0);
+    if (data.length>1024*1024) {//1M以及以上
+        data=UIImageJPEGRepresentation(myimage, 0.1);
+        
+    }else if (data.length>512*1024) {//0.5M-1M
+        data=UIImageJPEGRepresentation(myimage, 0.5);
+        
+    }else if (data.length>200*1024) {//0.25M-0.5M
+        data=UIImageJPEGRepresentation(myimage, 0.9);
+        
+    }
+    return data;
 }
 
 + (YYCache *)yyCache {
