@@ -14,6 +14,7 @@
 - Cocoapods```pod 'DWNetworking'```
 - 最低支持版本```iOS 8.0```
 - 交流群```577506623```
+- 自动选择是否使用```baseUrl```更加方便
 
 ![QQ群](https://github.com/CoderDwang/DWNetworking/blob/master/QQ群.png)
 

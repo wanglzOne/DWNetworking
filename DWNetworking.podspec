@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DWNetworking"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "基于AFNetworking～3.1.0 & YYCache~1.0.4"
   s.description  = <<-DESC
   - 基于```AFNetworking~>3.1.0``` & ```YYCache~>1.0.4```

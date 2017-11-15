@@ -163,7 +163,6 @@
 				TargetAttributes = {
 					27F8B67D1F55389300074918 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 7T92Q33AK6;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -382,7 +381,7 @@
 			baseConfigurationReference = BA4FEAA8464B9B433CB0A879 /* Pods-DWNetworkingDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7T92Q33AK6;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DWNetworkingDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -396,7 +395,7 @@
 			baseConfigurationReference = D32C83F338CB89CF0196B79F /* Pods-DWNetworkingDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7T92Q33AK6;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DWNetworkingDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

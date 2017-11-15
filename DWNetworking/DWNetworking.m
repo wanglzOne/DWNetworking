@@ -12,12 +12,14 @@
 
 /** 基础url */
 static NSString *_networking_baseUrl = nil;
+/** 是否使用基础url */
+static BOOL _useBaseUrl = YES;
 /** afn */
 static AFHTTPSessionManager *_networkingSession = nil;
 /** 请求头 */
 static NSDictionary *_networkingHttpHeaderConfig = nil;
 /** 超时时长 */
-static NSTimeInterval _networkingTimeout = 60.0f;
+static NSTimeInterval _networkingTimeout = 60.f;
 /** 最大请求并发数 */
 static NSInteger _networkingMaxConcurrentCount = 3;
 /** 是否自动使用缓存 */
@@ -65,6 +67,7 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
 + (void)getUrlString:(NSString *)url
               params:(NSDictionary *)params
       resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
+    _useBaseUrl = ([url hasPrefix:@"http://"]||[url hasPrefix:@"https://"])?NO:YES;
     AFHTTPSessionManager *manager = [self afnetworingManager];
     YYCache *cache = [self yyCache];
     __weak __typeof(self)weakSelf = self;
@@ -88,6 +91,7 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
 + (void)postUrlString:(NSString *)url
                params:(NSDictionary *)params
        resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
+    _useBaseUrl = ([url hasPrefix:@"http://"]||[url hasPrefix:@"https://"])?NO:YES;
     AFHTTPSessionManager *manager = [self afnetworingManager];
     YYCache *cache = [self yyCache];
     __weak __typeof(self)weakSelf = self;
@@ -116,6 +120,7 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
              parameters:(NSDictionary *)parameters
                progress:(void(^)(NSProgress *progress))progress
          resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
+    _useBaseUrl = ([url hasPrefix:@"http://"]||[url hasPrefix:@"https://"])?NO:YES;
     AFHTTPSessionManager *manager = [self afnetworingManager];
     __weak __typeof(self)weakSelf = self;
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
@@ -137,6 +142,7 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
               parameters:(NSDictionary *)parameters
                 progress:(void(^)(NSProgress *progress))progress
           resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
+    _useBaseUrl = ([url hasPrefix:@"http://"]||[url hasPrefix:@"https://"])?NO:YES;
     AFHTTPSessionManager *manager = [self afnetworingManager];
     __weak __typeof(self)weakSelf = self;
     [manager POST:[NSString stringWithFormat:@"%@%@", [self baseUrlString], url] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
@@ -215,7 +221,7 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
 + (AFHTTPSessionManager *)afnetworingManager {
     @synchronized (self) {
         AFHTTPSessionManager *manager = nil;
-        if ([self baseUrlString]) {
+        if ([self baseUrlString] && _useBaseUrl) {
             manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:[self baseUrlString]]];
         }else {
             manager = [AFHTTPSessionManager manager];
@@ -266,13 +272,10 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
     NSData *data=UIImageJPEGRepresentation(myimage, 1.0);
     if (data.length>1024*1024) {//1M以及以上
         data=UIImageJPEGRepresentation(myimage, 0.1);
-        
     }else if (data.length>512*1024) {//0.5M-1M
         data=UIImageJPEGRepresentation(myimage, 0.5);
-        
     }else if (data.length>200*1024) {//0.25M-0.5M
         data=UIImageJPEGRepresentation(myimage, 0.9);
-        
     }
     return data;
 }

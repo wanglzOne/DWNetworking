@@ -4,7 +4,9 @@
 //
 //  Created by dawng on 2017/8/28.
 //  Copyright © 2017年 CoderDwang. All rights reserved.
-//
+//*******************Github:https://github.com/CoderDwang/DWNetworking*************
+//*******************QQ:739814184*********************************************
+//*******************问题交流QQ群:577506623*************************************
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
