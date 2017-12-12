@@ -19,6 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [DWNetworking setBaseUrlString:@"基础url"];
     [DWNetworking setNotAutoUseCacheUrls:@[@"不使用自动缓存的url"]];
+    [DWNetworking setReturnCacheHiddenError:@"返回缓存数据时是否隐藏error信息/默认不隐藏"];
     [DWNetworking setAutoCleanCacheSize:1024];
     [DWNetworking networkEnvironmentChange:^(DWNetworkReachabilityStatus reachabilityStatus) {
         NSLog(@"%ld", reachabilityStatus);

@@ -24,6 +24,8 @@ static NSTimeInterval _networkingTimeout = 60.f;
 static NSInteger _networkingMaxConcurrentCount = 3;
 /** 是否自动使用缓存 */
 static BOOL _networkingAutoUseCache = YES;
+/** 返回缓存数据时error是否nil */
+static BOOL _returnCacheHiddenError = NO;
 /** 设置不使用缓存的url */
 static NSArray<NSString *> *_networkingNotAutoUseCache = nil;
 static DWNetworkRequestType _networkingRequestType = DWRequestTypePlainText;
@@ -64,15 +66,19 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
     _networkingAutoUseCache = cache;
 }
 
++ (void)setReturnCacheHiddenError:(BOOL)hidden {
+    _returnCacheHiddenError = hidden;
+}
+
 + (void)getUrlString:(NSString *)url
               params:(NSDictionary *)params
-      resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
+      resultCallBack:(void(^)(id success, NSError *error, BOOL isCache))resultCallBack {
     _useBaseUrl = ([url hasPrefix:@"http://"]||[url hasPrefix:@"https://"])?NO:YES;
     AFHTTPSessionManager *manager = [self afnetworingManager];
     YYCache *cache = [self yyCache];
     __weak __typeof(self)weakSelf = self;
     [manager GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        resultCallBack(responseObject, nil);
+        resultCallBack(responseObject, nil, NO);
         if (![[weakSelf notAutoUseCacheUrl] containsObject:url]) {
             if ([cache containsObjectForKey:url]) {
                 [cache removeObjectForKey:url];
@@ -81,22 +87,22 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if ([cache containsObjectForKey:url]) {
-            resultCallBack([cache objectForKey:url], nil);
+            resultCallBack([cache objectForKey:url], _returnCacheHiddenError?nil:error, YES);
         }else {
-            resultCallBack(nil, error);
+            resultCallBack(nil, error, nil);
         }
     }];
 }
 
 + (void)postUrlString:(NSString *)url
                params:(NSDictionary *)params
-       resultCallBack:(void(^)(id success, NSError *error))resultCallBack {
+       resultCallBack:(void(^)(id success, NSError *error, BOOL isCache))resultCallBack {
     _useBaseUrl = ([url hasPrefix:@"http://"]||[url hasPrefix:@"https://"])?NO:YES;
     AFHTTPSessionManager *manager = [self afnetworingManager];
     YYCache *cache = [self yyCache];
     __weak __typeof(self)weakSelf = self;
     [manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        resultCallBack(responseObject, nil);
+        resultCallBack(responseObject, nil, NO);
         if (![[weakSelf notAutoUseCacheUrl] containsObject:url]) {
             if ([cache containsObjectForKey:url]) {
                 [cache removeObjectForKey:url];
@@ -105,9 +111,9 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if ([cache containsObjectForKey:url]) {
-            resultCallBack([cache objectForKey:url], nil);
+            resultCallBack([cache objectForKey:url], _returnCacheHiddenError?nil:error, YES);
         }else {
-            resultCallBack(nil, error);
+            resultCallBack(nil, error, nil);
         }
     }];
 }
@@ -270,11 +276,11 @@ static NSString *kNetworkingCache = @"kNetworkingCacheYYPath";
 
 + (NSData *)imageData:(UIImage *)myimage {
     NSData *data=UIImageJPEGRepresentation(myimage, 1.0);
-    if (data.length>1024*1024) {//1M以及以上
+    if (data.length>1024*1024) {
         data=UIImageJPEGRepresentation(myimage, 0.1);
-    }else if (data.length>512*1024) {//0.5M-1M
+    }else if (data.length>512*1024) {
         data=UIImageJPEGRepresentation(myimage, 0.5);
-    }else if (data.length>200*1024) {//0.25M-0.5M
+    }else if (data.length>200*1024) {
         data=UIImageJPEGRepresentation(myimage, 0.9);
     }
     return data;

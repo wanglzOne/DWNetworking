@@ -30,6 +30,9 @@
     //(此处为默认数据，可不加此数据)
     [DWNetworking setConfigRequestType:DWRequestTypePlainText responseType:DWResponseTypeJSON];
     
+    //设置返回缓存数据时是否隐藏error信息/默认不隐藏
+    [DWNetworking setReturnCacheHiddenError:YES];
+    
     //设置是否自动使用缓存
     //即为请求失败或者当前无网络连接，
     //如果缓存中有数据则返回缓存数据，

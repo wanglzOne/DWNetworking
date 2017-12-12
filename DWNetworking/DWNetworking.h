@@ -86,6 +86,13 @@ typedef NS_ENUM(NSUInteger, DWNetworkRequestType) {
 + (void)setNotAutoUseCacheUrls:(NSArray <NSString *>*)urls;
 
 /**
+ 设置返回缓存数据时是否隐藏error信息(即为nil)
+
+ @param hidden 默认为NO/不隐藏error信息
+ */
++ (void)setReturnCacheHiddenError:(BOOL)hidden;
+
+/**
  获取当前已有不使用缓存的url
  @return 已有地址
  */
@@ -134,7 +141,7 @@ typedef NS_ENUM(NSUInteger, DWNetworkRequestType) {
  */
 + (void)getUrlString:(NSString *)url
               params:(NSDictionary *)params
-      resultCallBack:(void(^)(id success, NSError *error))resultCallBack;
+      resultCallBack:(void(^)(id success, NSError *error, BOOL isCache))resultCallBack;
 
 /**
  POST
@@ -144,7 +151,7 @@ typedef NS_ENUM(NSUInteger, DWNetworkRequestType) {
  */
 + (void)postUrlString:(NSString *)url
                params:(NSDictionary *)params
-       resultCallBack:(void(^)(id success, NSError *error))resultCallBack;
+       resultCallBack:(void(^)(id success, NSError *error, BOOL isCache))resultCallBack;
 
 /**
  单图上传

@@ -20,7 +20,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [DWNetworking postUrlString:@"当输入的请求地址为http://或者https://开头时,则不自动抛弃baseUrl" params:nil resultCallBack:^(id success, NSError *error) {
+    [DWNetworking postUrlString:@"当输入的请求地址为http://或者https://开头时,则不自动抛弃baseUrl" params:nil resultCallBack:^(id success, NSError *error, BOOL isCache) {
         if (!error) {
             NSLog(@"%@--->%lld", success, [DWNetworking getCachesSize]);
         }
